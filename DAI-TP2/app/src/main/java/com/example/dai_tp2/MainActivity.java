@@ -1,16 +1,29 @@
 package com.example.dai_tp2;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.lang.reflect.Array;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     //Array de botones, declarado globalmente
     ImageButton[] ArrayBotones;
+    //Inicializamos un contador de jugadas
+    int ContJugadas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +58,56 @@ public class MainActivity extends AppCompatActivity {
 
     public void Jugar(View VistaRecibida){
         //Recorremos el vector de botones para que se puedan clickear.
-        for(int i = 0; i < 9; i++){
-            ArrayBotones[i].setClickable(true);
-        }
+
+        //Se reinicia el contador de Jugadas
+        ContJugadas=0;
     }
 
-    public void Jugada(View VistaRecibida){
+    public void Jugada(View VistaRecibida) {
+        //Se añade una jugada al contador
+        ContJugadas++;
+
         //Declaramos la variable para el Boton Presionado
         ImageButton BotonPresionado;
-        BotonPresionado=(ImageButton)VistaRecibida;
+        BotonPresionado = (ImageButton) VistaRecibida;
 
         //Variable para el tag de ese boton, lo obtenemos y lo convertimos en tipo int.
         String TagBotonPresionado;
         TagBotonPresionado = BotonPresionado.getTag().toString();
         int NumeroBotonPresionado;
-        NumeroBotonPresionado=Integer.parseInt(TagBotonPresionado);
+        NumeroBotonPresionado = Integer.parseInt(TagBotonPresionado);
 
-        //LLamamos a la funcion encargada de invertir el color del boton, enviandole el respectivo numero
+        //Llamamos a la funcion encargada de traer todos los botones que deben cambiar de color
+        List<Integer> BotonesACambiar = new ArrayList<Integer>();
+        BotonesACambiar=BotonesACambiar(NumeroBotonPresionado);
+        
+        //Llamamos a la funcion encargada de invertir la imagen segun el numero del boton por la cantidad de numeros que haya en nuestra lista
+        for (int numero:BotonesACambiar)
+        {
+            InvertirImageButton(numero);
+        }
 
+        //Verificamos si ganó o no con una funcion, devuelve un boolean
+        boolean Ganado = Ganar();
+        if (Ganado==true)
+        {
+            //Ganamos!!! Nos vamos a otra activity
+
+            //Enviamos los datos correspondientes
+            EditText Nombre=findViewById(R.id.Nombre);
+
+            Bundle PaqueteDeDatos;
+            PaqueteDeDatos = new Bundle();
+
+            PaqueteDeDatos.putString("Nombre", Nombre.getText().toString());
+            PaqueteDeDatos.putInt("Contador", ContJugadas);
+
+            Intent ActividadDestino;
+            ActividadDestino=new Intent(MainActivity.this, ActividadVictoria.class);
+            ActividadDestino.putExtras(PaqueteDeDatos);
+
+            startActivity(ActividadDestino);
+        }
     }
 
     public int RandomEntre0y1()
@@ -89,10 +134,113 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void InvertirImageButton(ImageButton Boton)
+    public void InvertirImageButton(int NumeroBoton)
     {
+        //Obtenemos el codigo de la imagen que tiene el botoncito
+        Drawable.ConstantState CodigoImagenBoton;
+        CodigoImagenBoton = ArrayBotones[NumeroBoton].getDrawable().getConstantState();
 
+        //Obtengo el codigo de una de las imagenes
+        Drawable.ConstantState CodigoImagen1;
+        CodigoImagen1= ContextCompat.getDrawable(this, R.drawable.cuadceleste).getConstantState();
 
+        //Si la imagen que tiene el boton es la celeste, le asigno la azul, en caso contrario, le asigno la celeste
+        if(CodigoImagen1==CodigoImagenBoton){
+            ArrayBotones[NumeroBoton].setImageResource(R.drawable.cuadazul);
+        }
+        else{
+            ArrayBotones[NumeroBoton].setImageResource(R.drawable.cuadceleste);
+        }
+    }
 
+    public List<Integer> BotonesACambiar (Integer NumeroBoton) {
+        //Inicializamos un ArrayList
+        List<Integer> ListaBotones = new ArrayList<Integer>();
+
+        //Segun el boton presionado, el ArrayList se llena con diferentes numeros de los respectivos botones a cambiar
+        if(NumeroBoton==0){
+            ListaBotones.add(0);
+            ListaBotones.add(1);
+            ListaBotones.add(3);
+            ListaBotones.add(4);
+        }
+        if(NumeroBoton==1){
+            ListaBotones.add(0);
+            ListaBotones.add(1);
+            ListaBotones.add(2);
+            ListaBotones.add(4);
+        }
+        if(NumeroBoton==2){
+            ListaBotones.add(1);
+            ListaBotones.add(2);
+            ListaBotones.add(4);
+            ListaBotones.add(5);
+        }
+        if(NumeroBoton==3){
+            ListaBotones.add(0);
+            ListaBotones.add(3);
+            ListaBotones.add(4);
+            ListaBotones.add(6);
+        }
+        if(NumeroBoton==4){
+            ListaBotones.add(1);
+            ListaBotones.add(3);
+            ListaBotones.add(4);
+            ListaBotones.add(5);
+            ListaBotones.add(7);
+        }
+        if(NumeroBoton==5){
+            ListaBotones.add(2);
+            ListaBotones.add(4);
+            ListaBotones.add(5);
+            ListaBotones.add(8);
+        }
+        if(NumeroBoton==6){
+            ListaBotones.add(3);
+            ListaBotones.add(4);
+            ListaBotones.add(6);
+            ListaBotones.add(7);
+        }
+        if(NumeroBoton==7){
+            ListaBotones.add(4);
+            ListaBotones.add(6);
+            ListaBotones.add(7);
+            ListaBotones.add(8);
+        }
+        if(NumeroBoton==8){
+            ListaBotones.add(4);
+            ListaBotones.add(5);
+            ListaBotones.add(7);
+            ListaBotones.add(8);
+        }
+        return ListaBotones;
+    }
+
+    public boolean Ganar() {
+        //Inicializamos variable boolean
+        boolean ganar=false;
+
+        //Obtenemos los codigos de las imagenes
+        Drawable.ConstantState CodigoImagen1;
+        CodigoImagen1= ContextCompat.getDrawable(this, R.drawable.cuadceleste).getConstantState();
+
+        Drawable.ConstantState CodigoImagenBoton;
+
+        int Cont = 0;
+
+        for (int i = 0; i < 9; i++)
+        {
+            //Por cada boton verificamos si coinciden o no las imagenes
+            CodigoImagenBoton = ArrayBotones[i].getDrawable().getConstantState();
+            if (CodigoImagenBoton == CodigoImagen1)
+            {
+                Cont++;
+            }
+        }
+        if (Cont==0||Cont==9){
+            //Segun los resultados del contador, se verifica que todas las imagenes sean iguales
+            ganar = true;
+        }
+        return ganar;
     }
 }
