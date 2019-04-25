@@ -57,10 +57,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Jugar(View VistaRecibida){
-        //Recorremos el vector de botones para que se puedan clickear.
-
-        //Se reinicia el contador de Jugadas
-        ContJugadas=0;
+        //Inicializamos la variable para el Nombre ingresado en pantalla.
+        EditText Nombre = findViewById(R.id.Nombre);
+        String NombreObtenido = Nombre.getText().toString();
+        //Verificamos que no venga nulo.
+        if(NombreObtenido.length()!=0)
+        {
+            //En caso que no lo sea, recorremos el vector de botones para que se puedan clickear.
+            for(int i=0; i<9; i++)
+            {
+                ImageButton Boton = ArrayBotones[i];
+                Boton.setVisibility(View.VISIBLE);
+            }
+            //Se reinicia el contador de Jugadas
+            ContJugadas=0;
+        }
     }
 
     public void Jugada(View VistaRecibida) {

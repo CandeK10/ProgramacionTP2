@@ -16,6 +16,11 @@
         android:text="Jugar"
         android:onClick="Jugar"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NumeroVerificacion"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +32,8 @@
             android:background="#0000"
             android:id="@+id/Boton1"
             android:tag="0"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -35,7 +41,8 @@
             android:background="#0000"
             android:id="@+id/Boton2"
             android:tag="1"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -43,7 +50,8 @@
             android:background="#0000"
             android:id="@+id/Boton3"
             android:tag="2"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +65,8 @@
             android:background="#0000"
             android:id="@+id/Boton4"
             android:tag="3"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -65,7 +74,8 @@
             android:background="#0000"
             android:id="@+id/Boton5"
             android:tag="4"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -73,7 +83,8 @@
             android:background="#0000"
             android:id="@+id/Boton6"
             android:tag="5"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -87,7 +98,8 @@
             android:background="#0000"
             android:id="@+id/Boton7"
             android:tag="6"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -95,7 +107,8 @@
             android:background="#0000"
             android:id="@+id/Boton8"
             android:tag="7"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
         <ImageButton
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -103,7 +116,8 @@
             android:background="#0000"
             android:id="@+id/Boton9"
             android:tag="8"
-            android:onClick="Jugada"/>
+            android:onClick="Jugada"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </LinearLayout>
