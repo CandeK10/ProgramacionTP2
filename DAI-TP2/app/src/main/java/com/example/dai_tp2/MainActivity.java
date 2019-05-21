@@ -98,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
             InvertirImageButton(numero);
         }
 
+        TextView CantidadJugadas;
+        CantidadJugadas=findViewById(R.id.CantJugadas);
+        CantidadJugadas.setText("Jugadas: " + ContJugadas);
+
         //Verificamos si ganó o no con una funcion, devuelve un boolean
         boolean Ganado = Ganar();
         if (Ganado==true)
@@ -117,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             ActividadDestino=new Intent(MainActivity.this, ActividadVictoria.class);
             ActividadDestino.putExtras(PaqueteDeDatos);
 
+            //Iniciamos las otra activity
             startActivity(ActividadDestino);
         }
     }

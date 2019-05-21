@@ -12,8 +12,14 @@
         android:id="@+id/MensajeVictoria"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="30dp"
         android:id="@+id/MostrarJugadas"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="VolverAJugar"
+        android:text="Volver a jugar"/>
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.example.dai_tp2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ActividadVictoria extends AppCompatActivity {
@@ -29,5 +31,13 @@ public class ActividadVictoria extends AppCompatActivity {
         //Seteamos los elementos de la view de Victoria
         NombreJugador.setText("Ganaste, " + Nombre + "!!!");
         CantidadJugadas.setText("Jugadas: " + Cantidad);
+    }
+
+    public void VolverAJugar (View VistaRecibida){
+        //vuelvo a la actividad principal para volver a jugar
+        Intent ActividadDestino;
+        ActividadDestino = new Intent(ActividadVictoria.this, MainActivity.class);
+
+        startActivity(ActividadDestino);
     }
 }
